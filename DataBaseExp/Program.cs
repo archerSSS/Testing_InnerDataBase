@@ -18,9 +18,16 @@ namespace DataBaseExp
             
             connection.Open();
 
-            SqlCommand com = new SqlCommand("SELECT * FROM [Table]");
+
+            SqlCommand com = new SqlCommand("INSERT INTO [Table] (Id, [Name], [Surname]) VALUES(3, 'Trevor', 'Markson')");
             com.Connection = connection;
-            SqlDataReader reader = com.ExecuteReader();
+            com.ExecuteNonQuery();
+            connection.Close();
+
+            connection.Open();
+            SqlCommand com2 = new SqlCommand("SELECT * FROM [Table]");
+            com2.Connection = connection;
+            SqlDataReader reader = com2.ExecuteReader();
             if (reader.HasRows)
             {
                 while (reader.Read())
@@ -30,7 +37,6 @@ namespace DataBaseExp
                     string s = reader.GetString(2);
                 }
             }
-
             connection.Close();
         }
     }
